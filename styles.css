@@ -1,0 +1,513 @@
+/* Estilo inicial de la página*/
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: radial-gradient(circle at center, #1e1e2f 0%, #0d0d15 100%);
+}
+
+/* Estilo para el titulo con Animacióm*/
+h1 {
+  display: flex;              
+  align-items: center;        
+  justify-content: center;    
+  gap: 12px;                  
+  font-family: 'Press Start 2P', sans-serif; /* estilo retro (descargable de Google Fonts) */
+  font-size: 2.2rem;
+  color: #E0B612;
+  text-shadow: 2px 2px 6px #000; 
+  margin: 20px 0;
+
+  /* Animación */
+  animation: pulse 2.5s infinite;
+}
+
+/* Ajuste de la imagen*/
+.logo {
+  height: 60px;
+  width: auto;
+  animation: bounce 2s infinite; /* animación separada para el logo */
+}
+
+/* Animación de "latido" para el titulo */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 2px 2px 6px #000, 0 0 5px #ffcb05, 0 0 15px #ffcb05;
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 2px 2px 8px #000, 0 0 10px #3b4cca, 0 0 20px #3b4cca;
+  }
+}
+
+/* Animación de rebote para la imagen */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+
+/* Buscador y boton para la busqueda de Pokemon*/
+#pokemonInput, #btn {
+  padding: 8px;
+  font-size: 16px;
+  margin: 5px;
+}
+
+/* Barra tipos de Pokemones*/
+.type-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1e1e2f;
+  background: radial-gradient(circle at center, #1e1e2f 0%, #0d0d15 100%);
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;   /*  scroll horizontal */
+  white-space: nowrap; /*  que no salten de línea */
+  border-bottom: 2px solid #ddd;
+  scrollbar-width: none;
+}
+
+
+
+/* Botones en la barra de tipo*/
+.type-btn {
+  flex-shrink: 0; /* evita que se achiquen */
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #eee;
+  font-size: 14px;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.type-btn:hover {
+  transform: scale(1.05);
+  background: #ddd;
+}
+
+/* Tipo seleccionado */
+.type-btn.active-type {
+  background: #333;
+  color: white;
+  font-weight: bold;
+  transform: scale(1.05);
+}
+
+
+/* Color de cada uno de los botones de tipo*/
+.type-btn[data-type="normal"]   { background: #A8A77A; }
+.type-btn[data-type="fire"]     { background: #EE8130; }
+.type-btn[data-type="water"]    { background: #6390F0; }
+.type-btn[data-type="electric"] { background: #F7D02C; color: black; }
+.type-btn[data-type="grass"]    { background: #7AC74C; }
+.type-btn[data-type="ice"]      { background: #96D9D6; color: black; }
+.type-btn[data-type="fighting"] { background: #C22E28; }
+.type-btn[data-type="poison"]   { background: #A33EA1; }
+.type-btn[data-type="ground"]   { background: #E2BF65; color: black; }
+.type-btn[data-type="flying"]   { background: #A98FF3; }
+.type-btn[data-type="psychic"]  { background: #F95587; }
+.type-btn[data-type="bug"]      { background: #A6B91A; color: black; }
+.type-btn[data-type="rock"]     { background: #B6A136; color: black; }
+.type-btn[data-type="ghost"]    { background: #735797; }
+.type-btn[data-type="dragon"]   { background: #6F35FC; }
+.type-btn[data-type="dark"]     { background: #705746; }
+.type-btn[data-type="steel"]    { background: #B7B7CE; color: black; }
+.type-btn[data-type="fairy"]    { background: #D685AD; }
+.type-btn[data-type="all"]      { background: #444; }
+
+/* Activacion del boton*/ 
+.type-bar button.active {
+  border: 2px solid #333;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+
+#output {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+/* TARJETAS */
+/* Estilo base de las tarjetas */
+.pokemon-card {
+  border-radius: 15px;
+  padding: 15px;
+  margin: 15px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+/* Animación de la tarjeta */
+.pokemon-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+
+/* Imagen */
+.pokemon-card img {
+  width: 120px;
+  height: 120px;
+}
+
+/* Contenedor de tipos */
+.types {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Badge de cada tipo */
+.type-badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+/* Colores de fondo según el tipo */
+.fire { background: linear-gradient(135deg, #FD6E6A, #FF8C00); }
+.water { background: linear-gradient(135deg, #6890F0, #98D8D8); }
+.grass { background: linear-gradient(135deg, #48D0B0, #A7DB8D); }
+.electric { background: linear-gradient(135deg, #F8D030, #FAE078); }
+.psychic { background: linear-gradient(135deg, #F85888, #FFB7B2); }
+.ice { background: linear-gradient(135deg, #98D8D8, #D0F0F0); }
+.rock { background: linear-gradient(135deg, #B8A038, #E0C068); }
+.ground { background: linear-gradient(135deg, #E0C068, #DEC16B); }
+.poison { background: linear-gradient(135deg, #A040A0, #C183C1); }
+.bug { background: linear-gradient(135deg, #A8B820, #C6D16E); }
+.flying { background: linear-gradient(135deg, #A890F0, #C6B7F5); }
+.fighting { background: linear-gradient(135deg, #C03028, #D67873); }
+.dark { background: linear-gradient(135deg, #705848, #A29288); }
+.dragon { background: linear-gradient(135deg, #7038F8, #A27DFA); }
+.steel { background: linear-gradient(135deg, #B8B8D0, #D1D1E0); }
+.ghost { background: linear-gradient(135deg, #705898, #A292BC); }
+.fairy { background: linear-gradient(135deg, #EE99AC, #F4BDC9); }
+.normal { background: linear-gradient(135deg, #A8A878, #C6C6A7); }
+
+/* Badges de tipo con colores más suaves */
+.type-badge.fire    { background: #FD6E6A; }
+.type-badge.water   { background: #6890F0; }
+.type-badge.grass   { background: #48D0B0; }
+.type-badge.electric{ background: #F8D030; color: #333; } 
+.type-badge.psychic { background: #F85888; }
+.type-badge.ice     { background: #98D8D8; color: #333; }
+.type-badge.rock    { background: #B8A038; }
+.type-badge.ground  { background: #E0C068; color: #333; }
+.type-badge.poison  { background: #A040A0; }
+.type-badge.bug     { background: #A8B820; color: #333; }
+.type-badge.flying  { background: #A890F0; }
+.type-badge.fighting{ background: #C03028; }
+.type-badge.dark    { background: #705848; }
+.type-badge.dragon  { background: #7038F8; }
+.type-badge.steel   { background: #B8B8D0; color: #333; }
+.type-badge.ghost   { background: #705898; }
+.type-badge.fairy   { background: #EE99AC; }
+.type-badge.normal  { background: #A8A878; color: #333; }
+
+
+/* MODAL */
+.modal {
+  display: none; /* oculto al inicio */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  padding: 10px; 
+
+  /* Animación del Modal */
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  backdrop-filter: blur(0px);
+}
+
+/* Modal Activado */
+.modal.active {
+  display: flex; 
+  opacity: 1;
+  transform: scale(1);
+  backdrop-filter: blur(4px);
+}
+
+/* Contenido del modal activo*/
+.modal-content {
+  background: white; 
+  padding: 20px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 100%; 
+  max-height: 90vh; 
+  overflow-y: auto; /* scroll si se llena mucho */
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  text-align: center;
+
+  transition: background 0.4s ease;
+  color: #1e1e2f; 
+}
+
+/* Botón cerrar */
+#closeModal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: inherit; /* mismo color que el contenido */
+}
+
+/* Fondos del modal por el tipo*/
+.modal-content.normal { background: linear-gradient(135deg, #A8A77A, #D3D3B8); color: black; }
+.modal-content.fire { background: linear-gradient(135deg, #F08030, #F5AC78); }
+.modal-content.water { background: linear-gradient(135deg, #6890F0, #98BDF5); }
+.modal-content.electric { background: linear-gradient(135deg, #F8D030, #FAE078); color: black; }
+.modal-content.grass { background: linear-gradient(135deg, #78C850, #A7DB8D); }
+.modal-content.ice { background: linear-gradient(135deg, #98D8D8, #BCE6E6); color: black; }
+.modal-content.fighting { background: linear-gradient(135deg, #C03028, #E07B73); }
+.modal-content.poison { background: linear-gradient(135deg, #A040A0, #C183C1); }
+.modal-content.ground { background: linear-gradient(135deg, #E0C068, #ECD9A3); color: black; }
+.modal-content.flying { background: linear-gradient(135deg, #A890F0, #C6B7F5); }
+.modal-content.psychic { background: linear-gradient(135deg, #F85888, #F5A5C6); }
+.modal-content.bug { background: linear-gradient(135deg, #A8B820, #C6D16E); color: black; }
+.modal-content.rock { background: linear-gradient(135deg, #B8A038, #D1C17D); color: black; }
+.modal-content.ghost { background: linear-gradient(135deg, #705898, #A292BC); }
+.modal-content.dragon { background: linear-gradient(135deg, #7038F8, #A27DFA); }
+.modal-content.dark { background: linear-gradient(135deg, #705848, #A29288); }
+.modal-content.steel { background: linear-gradient(135deg, #B8B8D0, #D1D1E0); color: black; }
+.modal-content.fairy { background: linear-gradient(135deg, #EE99AC, #F4BDC9); }
+
+
+/* TABS */
+.tabs {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap; /* en pantallas chicas, que bajen */
+  justify-content: center;
+}
+
+/*Botones del Tab*/
+.tab-btn {
+  padding: 8px 12px;
+  margin: 5px;
+  border: none;
+  background: #022359;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  color: white;
+}
+
+/*Animación cuando se activa el tab*/
+.tab-btn.active {
+  background: #0248BD;
+  color: white;
+}
+
+/*Contenido del tab*/
+#tab-content {
+  position: relative;
+  min-height: 160px; /* para evitar que el modal "salte" */
+  overflow: hidden;
+}
+
+/* Estado inicial de cada tab */
+.tab-panel {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 100%; 
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+/* Tab activo */
+.tab-panel.active {
+  left: 0;
+  opacity: 1;
+  z-index: 2;
+}
+
+.tab-panel.exit {
+  left: -100%;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* TAB ESTADISTICAS*/
+/* Stats con barras */
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.stat-name {
+  width: 100px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.stat-bar {
+  flex: 1;
+  height: 12px;
+  background: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-fill {
+  height: 100%;
+  width: 0%; /* inicia vacía */
+  transition: width 0.6s ease;
+}
+
+
+.stat-value {
+  width: 40px;
+  text-align: right;
+  font-weight: bold;
+}
+
+/*TAB EVOLUCIONES*/
+.evo-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.evo-all-paths {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.evo-path {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.evo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  margin: 0 6px;
+}
+
+.evo-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+}
+
+.evo-arrow {
+  font-size: 20px;
+  margin: 0 6px;
+  opacity: 0.9;
+}
+
+.evo-sep {
+  height: 1px;
+  width: 80%;
+  background: #eee;
+  margin: 6px 0;
+  border-radius: 2px;
+}
+
+
+/* Simbolo de cargando */
+#loader {
+  display: none; /* oculto por defecto */
+  text-align: center;
+  padding: 20px;
+}
+
+#loader::after {
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ddd;
+  border-top-color: #d62828; /* color de la animación */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/*Animación del simbolo de cargando*/
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*Media queries (Diseño Responsive)*/
+/*Diseño en Tablets*/
+@media (max-width: 900px) and (min-width: 601px) {
+  #output {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  .pokemon-card {
+    width: 170px;
+    padding: 15px;
+  }
+}
+
+/*Diseño en Celulares*/
+@media (max-width: 600px) {
+  #output {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+  }
+
+  .pokemon-card {
+    width: 140px;
+    padding: 12px;
+  }
+
+  .pokemon-card img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+
+

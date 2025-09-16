@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto Pokedéx</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>
+  <img src="pokemon.png" alt="Pokédex" class="logo">
+  LA POKEDÉX
+  </h1>
+
+  <input type="text" id="pokemonInput" placeholder="Escribe un Pokémon">
+  <button id="btn">Buscar</button>
+
+  <!--Barra de tipos y sus colores-->
+  <div id="typeBar" class="type-bar">
+  <button class="type-btn" data-type="normal">Normal</button>
+  <button class="type-btn" data-type="fire">Fire</button>
+  <button class="type-btn" data-type="water">Water</button>
+  <button class="type-btn" data-type="electric">Electric</button>
+  <button class="type-btn" data-type="grass">Grass</button>
+  <button class="type-btn" data-type="ice">Ice</button>
+  <button class="type-btn" data-type="fighting">Fighting</button>
+  <button class="type-btn" data-type="poison">Poison</button>
+  <button class="type-btn" data-type="ground">Ground</button>
+  <button class="type-btn" data-type="flying">Flying</button>
+  <button class="type-btn" data-type="psychic">Psychic</button>
+  <button class="type-btn" data-type="bug">Bug</button>
+  <button class="type-btn" data-type="rock">Rock</button>
+  <button class="type-btn" data-type="ghost">Ghost</button>
+  <button class="type-btn" data-type="dragon">Dragon</button>
+  <button class="type-btn" data-type="dark">Dark</button>
+  <button class="type-btn" data-type="steel">Steel</button>
+  <button class="type-btn" data-type="fairy">Fairy</button>
+  <button class="type-btn" data-type="all">✨ All</button>
+</div>
+
+  <div id="output"></div>
+ 
+  <!--Simbolo de cargadando-->
+  <div id="loader" class="loader" style="display: none;"></div>
+
+  
+  <!--Modal oculto-->
+  <div id="pokemonModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal">&times;</span>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!--Enlaces con los JS-->
+  <script src="config.js"></script>
+  <script src="scripts.js"></script>
+
+</body>
+</html>
+
+
